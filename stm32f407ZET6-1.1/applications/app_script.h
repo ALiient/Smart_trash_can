@@ -20,6 +20,6 @@ void sw18_thread_entry(void *parameter);
 void sg90_thread_entry(void *parameter);
 void hx711_thread_entry(void *parameter);
 void led_thread_entry(void *parameter);
-void hcsr04_thread_entry(void *parameter);
+void sr04_thread_entry(void *parameter);
 
 #endif

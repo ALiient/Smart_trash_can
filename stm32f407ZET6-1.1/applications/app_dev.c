@@ -18,17 +18,22 @@
 static rt_device_t sw18;
 static rt_sw18_t sw18_1;
 static rt_uint32_t sw18_data;
-
 /*		sg_90		*/
 static rt_device_t sg90;
 static rt_sg90_t sg90_1;
 static rt_uint32_t sg90_data;
-
 /*		hx711		*/
 rt_device_t hx711;
-static rt_hx711_t hx711_1;
 rt_device_t serial;
+static rt_hx711_t hx711_1;
 static rt_uint32_t hx711_data;
+/*		sr04		*/
+rt_device_t sr04;
+static rt_sr04_t sr04_1;
+static rt_uint32_t sr04_data;
+
+
+
 
 rt_sem_t sem = RT_NULL; //信号量控制块
 
@@ -52,15 +57,19 @@ static void led_init(void)
 	/**********************超声波***************************/
 static void rt_hcsr04_init(void)
 {
-	HCSR04_Init();
-	tid1 = rt_thread_create("LED",hcsr04_thread_entry,RT_NULL,1024,19,10);		
+	rt_hw_sr04_register(&sr04_1,"sr04_1",RT_DEVICE_OFLAG_RDWR,&sr04_data);//注册函数
+	sr04 = rt_device_find(SR04_DEVICE_NAME);//查找设备
+	rt_device_init(sr04);
+
+	rt_device_open(sr04,RT_DEVICE_OFLAG_RDWR);
+	tid1 = rt_thread_create("sr04",sr04_thread_entry,RT_NULL,1024,10,10);
 	
 	if(tid1 != RT_NULL)
 	{
 		rt_thread_startup(tid1);
-		LOG_I("hcsr04_thread_entry init ok!\n");
+		LOG_I("sr04_thread_entry init ok!\n");
 	}else
-		LOG_E("hcsr04_thread_entry init fail!\n");
+		LOG_E("sr04_thread_entry init fail!\n");
 }
 
 
@@ -102,12 +111,12 @@ static void rt_sg90_init(void)
 
 static void rt_hx711_init(void)
 {
-	rt_hw_hx711_register(&hx711_1,"hx711_1",RT_DEVICE_FLAG_RDONLY,&hx711_data);	//注册函数各不相同，自定义的设备才需调用
-    hx711 = rt_device_find(HX711_DEVICE_NAME);									//其他与普通设备一样即可
+	rt_hw_hx711_register(&hx711_1,"hx711_1",RT_DEVICE_FLAG_RDONLY,&hx711_data);//注册函数各不相同，自定义的设备才需调用
+    hx711 = rt_device_find(HX711_DEVICE_NAME);//其他与普通设备一样即可
 	rt_device_init(hx711);
 	rt_device_open(hx711,RT_DEVICE_OFLAG_RDWR);
 	tid1 = rt_thread_create("hx711",hx711_thread_entry,RT_NULL,1024,20,10);
-	
+
 	if(tid1 != RT_NULL)
 	{
 		rt_thread_startup(tid1);
@@ -152,16 +161,16 @@ void rt_directory_init(void)			// reference to sdcard_port.c <sd_mount>
 MSH_CMD_EXPORT(rt_directory_init, rt_directory_init);
 
 
-void semaphore_hcsr04_init(void) //创建信号量
-{
-	sem = rt_sem_create("hcsr04",/* 信号量名字 */
-														0, /* 信号量初始值，默认有一个信号量 */
-														RT_IPC_FLAG_FIFO); /* 信号量模式 FIFO(0x00)*/
-	if (sem != RT_NULL)
-	{
-		LOG_I("semaphore_hcsr04_init!\n");
-	}
-}
+//void semaphore_hcsr04_init(void) //创建信号量
+//{
+//	sem = rt_sem_create("hcsr04",/* 信号量名字 */
+//														0, /* 信号量初始值，默认有一个信号量 */
+//														RT_IPC_FLAG_FIFO); /* 信号量模式 FIFO(0x00)*/
+//	if (sem != RT_NULL)
+//	{
+//		LOG_I("semaphore_hcsr04_init!\n");
+//	}
+//}
 
 void app_dev_init(void)
 {
@@ -170,8 +179,8 @@ void app_dev_init(void)
 	rt_sw18_init();
 	rt_sg90_init();
 	rt_hx711_init();
-	rt_hcsr04_init();
-	semaphore_hcsr04_init();
+//	rt_hcsr04_init();
+//	semaphore_hcsr04_init();
 	led_init();
 }
 

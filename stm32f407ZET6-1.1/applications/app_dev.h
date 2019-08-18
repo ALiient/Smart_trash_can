@@ -4,7 +4,7 @@
 #define __APP_DEV_H
 
 #include <rtthread.h> 
-#include <rtdevice.h> 
+#include <rtdevice.h>
 #include <dfs.h>
 #include <dfs_file.h>
 #include <dfs_fs.h>
@@ -15,7 +15,7 @@
 #include "HX711.h"
 #include "sw18.h"
 #include "usart.h"
-#include "HCSR04.h"
+#include "HC_SR04.h"
 
 
 /*		app_device_name		*/
@@ -40,8 +40,10 @@
 extern rt_device_t hx711;
 extern rt_device_t serial;
 
-extern rt_sem_t sem;
+extern rt_device_t sr04;
 
+
+extern rt_sem_t sem;
 
 void app_dev_init(void);
 void rt_directory_init(void);

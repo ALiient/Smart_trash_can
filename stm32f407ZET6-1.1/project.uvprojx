@@ -48,7 +48,7 @@
           <OutputName>rt-thread</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
-          <CreateHexFile>0</CreateHexFile>
+          <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
           <ListingPath>.\build\keil\List\</ListingPath>
@@ -505,16 +505,6 @@
               <FilePath>.\applications\application_init.c</FilePath>
             </File>
             <File>
-              <FileName>HCSR04.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\applications\HCSR04.c</FilePath>
-            </File>
-            <File>
-              <FileName>HX711.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\applications\HX711.c</FilePath>
-            </File>
-            <File>
               <FileName>sg90.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\applications\sg90.c</FilePath>
@@ -528,6 +518,16 @@
               <FileName>usart.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\applications\usart.c</FilePath>
+            </File>
+            <File>
+              <FileName>HC_SR04.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\applications\HC_SR04.c</FilePath>
+            </File>
+            <File>
+              <FileName>HX711.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\applications\HX711.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -1,7 +1,3 @@
-
-
-
-
 #include "HX711.h"
 //static rt_device_t hx711_dev;
 static rt_err_t hx711_init(struct rt_device *dev)//自己的程序 有的才写，函数类型要一致，函数参数也要一致
@@ -27,10 +23,10 @@ static rt_size_t hx711_read(struct rt_device *dev, rt_off_t pos, void *buffer, r
 	unsigned long count;
 	unsigned long weight;
 	rt_uint8_t i;
-  rt_pin_write(PD_SCK_PIN,PIN_LOW);
+	rt_pin_write(PD_SCK_PIN,PIN_LOW);
 	count=0; 
-  while(rt_pin_read(PD_DT_PIN)==1);
-  for(i=0;i<24;i++)
+	while(rt_pin_read(PD_DT_PIN)==1);
+	for(i=0;i<24;i++)
 	{ 
 		rt_pin_write(PD_SCK_PIN,PIN_HIGH);
 		count=count<<1; 

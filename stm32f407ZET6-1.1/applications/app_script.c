@@ -85,27 +85,17 @@ void led_thread_entry(void *parameter) //led闪烁
 	}
 }
 
-void hcsr04_thread_entry(void *parameter)
+
+void sr04_thread_entry(void *parameter)
 {
+	char str[5] = {0};
+	rt_uint32_t	distance=0;
+	rt_size_t size=4;
+	
 	while (1)
 	{
-		rt_sem_take(sem, RT_WAITING_FOREVER); /* 获取信号量, 等待时间：一直等 */
-		rt_enter_critical(); //进入临界区
-		HCSR04_Timer3_Get_Distance(); //超声波读取并从串口3打印
-		rt_exit_critical(); //退出临界区
-//		rt_thread_delay(500);
+		rt_device_read(sr04,0,&distance,size);
+		sprintf(str,"%ul\n",distance);
+		rt_device_write(serial, 0, str, sizeof(str));
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

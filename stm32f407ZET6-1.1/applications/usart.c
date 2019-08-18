@@ -1,5 +1,5 @@
 #include "usart.h"
-#include "HCSR04.h"
+#include "HC_SR04.h"
 #include "app_dev.h"
 
 UART_HandleTypeDef UART2_Handler; //UART ¾ä±ú
