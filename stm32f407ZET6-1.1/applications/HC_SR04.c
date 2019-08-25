@@ -5,11 +5,9 @@ rt_hwtimer_mode_t mode=HWTIMER_MODE_PERIOD;
 static void timeout1(void *parameter)
 {
     flag_overtime=1;
-	rt_device_write(serial, 0, "12\n", 3);
 }
 static rt_err_t sr04_init(struct rt_device *dev)
 {
-	rt_err_t ret = RT_EOK;
 	rt_pin_mode(Trig_PIN,PIN_MODE_OUTPUT);
 	rt_pin_mode(Echo_PIN,PIN_MODE_INPUT_PULLDOWN);
 	rt_system_timer_init();
@@ -25,13 +23,11 @@ static rt_err_t	sr04_open(struct rt_device *dev, rt_uint16_t oflag)
 }
 static rt_err_t sr04_close(struct rt_device *dev)
 {
-	//rt_timer_detach(&timer1);
+	rt_timer_detach(&timer1);
 	return 0;
 }
 static rt_size_t sr04_read(struct rt_device *dev, rt_off_t pos, void *buffer, rt_size_t size)
 {
-char str[9] = {0};
-	rt_err_t ret = RT_EOK;
 	rt_uint32_t x,y;
 	rt_uint32_t timer_ms;
 	rt_uint32_t	distance=0;
@@ -51,6 +47,7 @@ char str[9] = {0};
 	rt_memcpy(buffer,&distance,size);
 	return size;
 }
+
 const static struct rt_device_ops sr04_ops = 
 {
     sr04_init,

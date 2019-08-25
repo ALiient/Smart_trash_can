@@ -63,14 +63,13 @@ void hx711_thread_entry(void *parameter)
 {
 	char str[5] = {0};
 	rt_uint32_t weight;
-	rt_uint32_t	distance=0;
 	rt_size_t size=4;
 	
 	while (1)
 	{
 		rt_device_read(hx711,0,&weight,size);
 		sprintf(str,"%ul\n",weight);
-		rt_device_write(serial, 0, str, sizeof(str));
+		LOG_I("weight is [%s]\n", str);
 	}
 }
 
@@ -96,6 +95,6 @@ void sr04_thread_entry(void *parameter)
 	{
 		rt_device_read(sr04,0,&distance,size);
 		sprintf(str,"%ul\n",distance);
-		rt_device_write(serial, 0, str, sizeof(str));
+		LOG_I("distance is [%s]\n",str);
 	}
 }

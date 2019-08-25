@@ -46,34 +46,6 @@ static rt_err_t	sw18_close(struct rt_device *dev)//非必要
 {
 	return RT_EOK;
 }
-/*
-static rt_size_t hx711_read(struct rt_device *dev, rt_off_t pos, void *buffer, rt_size_t size)
-{
-	char str[5] = {0};
-	rt_int8_t GapValue= 100;		//传感器曲率 
-	unsigned long count;
-	unsigned long weight;
-	rt_uint8_t i;
-  rt_pin_write(PD_SCK_PIN,PIN_LOW);
-	count=0; 
-  while(rt_pin_read(PD_DT_PIN)==1);
-  for(i=0;i<24;i++)
-	{ 
-		rt_pin_write(PD_SCK_PIN,PIN_HIGH);
-		count=count<<1; 
-		rt_pin_write(PD_SCK_PIN,PIN_LOW);
-		if(rt_pin_read(PD_DT_PIN)==1)
-			count++;
-	} 
- 	rt_pin_write(PD_SCK_PIN,PIN_HIGH);
-	count=count^0x800000;
-	rt_pin_write(PD_SCK_PIN,PIN_LOW);
-	weight = (count-8457800)/1000;
-	size = sizeof(weight);
-	rt_memcpy(buffer,&weight,size);
-	return size;
-}//自己的程序 有的才写，函数类型要一致，函数参数也要一致
-*/
 const static struct rt_device_ops sw18_ops =
 {
 	sw18_init,

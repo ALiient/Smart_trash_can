@@ -28,5 +28,3 @@ rt_err_t rt_hw_sr04_register(rt_sr04_t *sr,
 static struct rt_timer timer1;
 static rt_uint8_t flag_overtime=0;
 #endif
-
-								 

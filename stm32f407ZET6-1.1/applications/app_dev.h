@@ -23,7 +23,7 @@
 #define SG90_DEVICE_NAME    "sg90"			//	Steering gear
 #define SAMPLE_UART_NAME    "uart1"
 #define HX711_DEVICE_NAME 	"hx711_1"
-#define SR04_DEVICE_NAME 	"sr04"
+#define SR04_DEVICE_NAME 	"sr04_1"
 
 
 /*		rtc_data		*/

@@ -62,7 +62,7 @@ static void rt_hcsr04_init(void)
 	rt_device_init(sr04);
 
 	rt_device_open(sr04,RT_DEVICE_OFLAG_RDWR);
-	tid1 = rt_thread_create("sr04",sr04_thread_entry,RT_NULL,1024,10,10);
+	tid1 = rt_thread_create("sr04",sr04_thread_entry,RT_NULL,1024,20,10);
 	
 	if(tid1 != RT_NULL)
 	{
@@ -179,7 +179,7 @@ void app_dev_init(void)
 	rt_sw18_init();
 	rt_sg90_init();
 	rt_hx711_init();
-//	rt_hcsr04_init();
+	rt_hcsr04_init();
 //	semaphore_hcsr04_init();
 	led_init();
 }
